@@ -437,6 +437,7 @@
         <a href="#vaccinations">Vaccinations</a>
         <a href="#insurance">Insurance</a>
         <a href="#locations">Locations</a>
+        <a href="#qrcode">QR Check-In</a>
       </div>
       <div class="nav-cta">
         <a class="btn btn-primary btn-sm" href="tel:+17323900028">📞 Call Now</a>
@@ -842,6 +843,147 @@
     </div>
   </div>
 </section>
+
+<!-- ══════════════════════════════════════════════════════════
+     QR CODE SECTION
+══════════════════════════════════════════════════════════ -->
+<section class="section section-alt" id="qrcode">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:48px;">
+      <div class="section-label">Patient Self-Service</div>
+      <h2 class="section-title">Scan to Check In or Get Directions</h2>
+      <p class="section-sub" style="margin:0 auto;">Patients can scan this QR code with their phone camera to instantly access check-in, appointment booking, new patient forms, and directions.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;max-width:900px;margin:0 auto;">
+
+      <!-- QR Code Card -->
+      <div style="background:#fff;border:1px solid var(--border);border-radius:20px;padding:32px;text-align:center;box-shadow:var(--shadow-lg);">
+        <div id="qr-display" style="display:inline-block;padding:16px;background:#fff;border-radius:12px;border:2px solid var(--border);margin-bottom:16px;"></div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:20px;">Point your phone camera at this code</div>
+
+        <!-- URL Customiser -->
+        <div style="background:var(--bg);border-radius:10px;padding:14px;margin-bottom:20px;text-align:left;">
+          <label style="font-size:12px;font-weight:700;color:var(--dark);display:block;margin-bottom:6px;">🔗 QR Code URL (update once hosted)</label>
+          <div style="display:flex;gap:8px;">
+            <input type="text" id="qr-url-input" value="qr-checkin.html"
+              style="flex:1;border:1.5px solid var(--border);border-radius:8px;padding:8px 10px;font-size:13px;outline:none;"
+              placeholder="https://yoursite.com/qr-checkin.html" />
+            <button onclick="regenerateQR()"
+              style="background:var(--blue);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;">
+              Update
+            </button>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+          <button onclick="downloadQR()" class="btn btn-primary btn-sm" style="width:auto;">⬇️ Download QR</button>
+          <button onclick="printQR()"    class="btn btn-sm" style="width:auto;background:var(--bg);color:var(--body);border:1px solid var(--border);">🖨️ Print</button>
+        </div>
+      </div>
+
+      <!-- What patients see -->
+      <div>
+        <h3 style="font-size:18px;font-weight:800;color:var(--dark);margin-bottom:20px;">What patients see when they scan</h3>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.05);">
+            <span style="font-size:28px;flex-shrink:0;">✅</span>
+            <div><strong style="color:var(--dark);font-size:14px;">Patient Check-In</strong><p style="font-size:13px;color:var(--muted);margin-top:3px;">Fill in name, DOB, appointment time and visit type — sent directly to reception via WhatsApp</p></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.05);">
+            <span style="font-size:28px;flex-shrink:0;">📋</span>
+            <div><strong style="color:var(--dark);font-size:14px;">New Patient Registration</strong><p style="font-size:13px;color:var(--muted);margin-top:3px;">Complete full intake form with insurance, address, reason for visit — submitted via WhatsApp or email</p></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.05);">
+            <span style="font-size:28px;flex-shrink:0;">📅</span>
+            <div><strong style="color:var(--dark);font-size:14px;">Book / Lookup Appointments</strong><p style="font-size:13px;color:var(--muted);margin-top:3px;">Clinic hours, appointment types, and direct call / WhatsApp booking links</p></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.05);">
+            <span style="font-size:28px;flex-shrink:0;">🗺️</span>
+            <div><strong style="color:var(--dark);font-size:14px;">Directions</strong><p style="font-size:13px;color:var(--muted);margin-top:3px;">One-tap Google Maps and Apple Maps links for both the East Brunswick and Millville offices</p></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.05);">
+            <span style="font-size:28px;flex-shrink:0;">📞</span>
+            <div><strong style="color:var(--dark);font-size:14px;">Contact & Message</strong><p style="font-size:13px;color:var(--muted);margin-top:3px;">Call, WhatsApp, or send a message to reception directly from the phone</p></div>
+          </div>
+        </div>
+
+        <div style="margin-top:20px;background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:14px;font-size:13px;color:#92400e;">
+          💡 <strong>Tip:</strong> Print and display the QR code at reception, on appointment cards, and in the waiting room.
+          Once your site is live, update the URL above to your real web address.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Print overlay -->
+<div id="print-overlay" style="display:none;">
+  <style>
+    @media print {
+      body > *:not(#print-overlay) { display: none !important; }
+      #print-overlay { display: block !important; }
+    }
+  </style>
+  <div id="print-content" style="text-align:center;padding:40px;font-family:sans-serif;">
+    <h2 style="font-size:28px;font-weight:900;color:#0369a1;margin-bottom:4px;">MedCenter</h2>
+    <p style="font-size:14px;color:#64748b;margin-bottom:24px;">Dr. Sarath Babu, MD · Internal Medicine</p>
+    <div id="qr-print-target" style="display:inline-block;padding:20px;border:3px solid #e2e8f0;border-radius:16px;margin-bottom:20px;"></div>
+    <p style="font-size:16px;font-weight:700;color:#0f172a;margin-bottom:8px;">📱 Scan to Check In</p>
+    <p style="font-size:13px;color:#64748b;margin-bottom:4px;">✅ Check In · 📋 New Patient · 📅 Appointments · 🗺️ Directions</p>
+    <p style="font-size:14px;font-weight:600;color:#0369a1;margin-top:12px;">📞 (732) 390-0028 · info@medcenter.com</p>
+  </div>
+</div>
+
+<!-- QR Code library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+  let qrInstance = null;
+
+  function generateQR(url) {
+    const el = document.getElementById('qr-display');
+    el.innerHTML = '';
+    qrInstance = new QRCode(el, {
+      text: url,
+      width: 200, height: 200,
+      colorDark: '#0369a1',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  }
+
+  function regenerateQR() {
+    const url = document.getElementById('qr-url-input').value.trim();
+    if (!url) return;
+    generateQR(url);
+  }
+
+  function downloadQR() {
+    const canvas = document.querySelector('#qr-display canvas');
+    if (!canvas) return;
+    const a = document.createElement('a');
+    a.download = 'medcenter-qr-code.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  }
+
+  function printQR() {
+    const url   = document.getElementById('qr-url-input').value.trim();
+    const printEl = document.getElementById('qr-print-target');
+    printEl.innerHTML = '';
+    new QRCode(printEl, {
+      text: url, width: 240, height: 240,
+      colorDark: '#0369a1', colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.H
+    });
+    setTimeout(() => window.print(), 600);
+  }
+
+  // Generate on load
+  window.addEventListener('DOMContentLoaded', () => {
+    generateQR(document.getElementById('qr-url-input').value);
+  });
+</script>
 
 <!-- ══════════════════════════════════════════════════════════
      CONTACT BAND
